@@ -2,9 +2,11 @@
   "name": "ludumdare41",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "webpack",
+    "start": "npm run build && webpack-dev-server --port=8000"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,14 @@
   },
   "homepage": "https://github.com/trollsofthenorth/ludumdare41#readme",
   "dependencies": {
+    "phaser": "^3.6.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.14",
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
-    "phaser": "^3.6.0"
+    "raw-loader": "^0.5.1",
+    "webpack-dev-server": "^2.11.0"
   }
 }
