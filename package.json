@@ -1,0 +1,24 @@
+{
+  "name": "ludumdare41",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trollsofthenorth/ludumdare41.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trollsofthenorth/ludumdare41/issues"
+  },
+  "homepage": "https://github.com/trollsofthenorth/ludumdare41#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "phaser": "^3.6.0"
+  }
+}
