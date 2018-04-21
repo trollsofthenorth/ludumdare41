@@ -19,6 +19,7 @@ var createScene = function () {
 
 
             // Add and manipulate meshes in the scene
+            var box = BABYLON.MeshBuilder.CreateBox("box", {height: 1, width: 0.75, depth: 0.25}, scene);
             var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:2}, scene);
 
             return scene;
