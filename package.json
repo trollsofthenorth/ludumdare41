@@ -1,0 +1,42 @@
+{
+  "name": "trollsofthenorth-ludumdare41",
+  "version": "1.0.0",
+  "description": "## Developer guide 1. To clone the repository run: `git clone git@github.com:trollsofthenorth/ludumdare41.git` 2. To change the directory to the cloned repository run: `cd ludumdare41` 3. To install the dependencies run: `npm install` 4. Write tests located in the `./tests/` directory. 5. Write code in the `./src/` directory. 6. To test the code run: `npm test` 7. To build and start a demo server, run: `npm start` 8. To fetch the latest changes run: `git fetch --all` 9. To pull the latest changes, run: `git pull`",
+  "main": "game.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "raw-loader": "^0.5.1",
+    "typescript": "^2.8.3",
+    "webpack": "^4.6.0",
+    "webpack-dev-server": "^3.1.3"
+  },
+  "devDependencies": {
+    "ts-loader": "^4.2.0",
+    "mocha": "^5.1.1",
+    "webpack-cli": "^2.0.15"
+  },
+  "scripts": {
+    "test": "mocha",
+    "build": "webpack",
+    "start": "npm run build && webpack-dev-server --port=8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trollsofthenorth/ludumdare41.git"
+  },
+  "keywords": [
+    "trollsofthenorth",
+    "ludumdare41",
+    "ludumdare",
+    "game",
+    "babylonjs"
+  ],
+  "author": "trollsofthenorth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trollsofthenorth/ludumdare41/issues"
+  },
+  "homepage": "https://github.com/trollsofthenorth/ludumdare41#readme"
+}
