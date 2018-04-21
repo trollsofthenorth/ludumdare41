@@ -42,10 +42,6 @@ class GameX {
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
         this._light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), this._scene);
 
-        // Create a built-in "sphere" shape; with 16 segments and diameter of 2.
-        let box = BABYLON.MeshBuilder.CreateBox('mybox', {size:3, width: 2, height:3, depth:3},
-            this._scene);
-
         let CreateWallWithDoorwayMesh = function(wallHeight: number, wallWidth: number, doorHeight: number, doorWidth: number, scene: BABYLON.Scene) {
             let customMesh2 = new BABYLON.Mesh("custom", scene);
 
@@ -74,8 +70,6 @@ class GameX {
             return mesh;
         };
 
-
-
         let startingWall = CreateWallWithDoorwayMesh(10, 6, 6, 3, this._scene);
 
         // Make a Wireframe Material for our
@@ -84,6 +78,27 @@ class GameX {
         wireframeMaterial.backFaceCulling = false;
         startingWall.material = wireframeMaterial;
 
+        // Create a built-in "zombieBox" shape and add texture from a skin.
+        let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this._scene);
+        let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this._scene);
+        zombieTexture.uScale = 2;
+        zombieMaterial.diffuseTexture = zombieTexture;
+        zombieMaterial.diffuseTexture.hasAlpha = true;
+        let zombieBox = BABYLON.MeshBuilder.CreateBox('zombieBox', {size: 3}, this._scene);
+        zombieBox.material = zombieMaterial;
+
+        // Here is an attempt to animate the contents of the box, but shifting the offset of the material.
+        let zombieBoxAnimation = new BABYLON.Animation("boxAnimation", 
+            "material.diffuseTexture.uScale", 
+            30, 
+            BABYLON.Animation.ANIMATIONTYPE_SIZE, 
+            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+        let animationKeys = [];
+        animationKeys.push({frame: 0, value:5});
+        animationKeys.push({frame: 5, value:20});
+        zombieBoxAnimation.setKeys(animationKeys);
+        zombieBox.animations.push(zombieBoxAnimation);
+        this._scene.beginAnimation(zombieBoxAnimation, 0, 100, true);
 
         // Move the sphere upward 1/2 of its height.
         //sphere.position.y = 1;
