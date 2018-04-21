@@ -1,8 +1,29 @@
 <html>
     <head>
+        <style>
+        	#overlay {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+			}
+
+			#videoel {
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+			}
+        </style>
     </head>
     <body>
-        <script src="vendor/clmtrackr.js"></script>
+        <script src="vendor/clmtrackr/clmtrackr.js"></script>
+        <script src="vendor/clmtrackr/utils.js"></script>
         <div id="container">
             <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
 			</video>
@@ -16,19 +37,6 @@
 				var vid_height = vid.height;
 				var overlay = document.getElementById('overlay');
                 var overlayCC = overlay.getContext('2d');
-                
-                /**** Cross-browser requestAnimationFrame ****/
-                /*
-                function crossRequestAnimFrame() {
-                    return window.requestAnimationFrame  || 
-                        window.webkitRequestAnimationFrame || 
-                        window.mozRequestAnimationFrame    || 
-                        window.oRequestAnimationFrame      || 
-                        window.msRequestAnimationFrame     || 
-                        function( callback ){
-                        window.setTimeout(callback, 1000 / 60);
-                }
-                */
 
 				/*********** Setup of video/webcam and checking for webGL support *********/
 				function enablestart() {
@@ -117,7 +125,6 @@
                 }
                 
 				function drawLoop() {
-                    var requesteAnimFrame = crossRequestAnimFrame();
 					requestAnimFrame(drawLoop);
 					overlayCC.clearRect(0, 0, vid_width, vid_height);
 					//psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
