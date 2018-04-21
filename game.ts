@@ -54,7 +54,8 @@ class GameX {
         });
 
         // The canvas/window resize event handler.
-        window.addEventListener('resize', () => {
+        
+        (<any>window).addEventListener('resize', () => {
             this._engine.resize();
         });
     }
@@ -62,7 +63,7 @@ class GameX {
 
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+(<any>window).addEventListener('DOMContentLoaded', () => {
     // Create the game using the 'renderCanvas'.
     let game = new GameX('renderCanvas');
 
