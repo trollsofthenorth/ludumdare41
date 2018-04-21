@@ -35,8 +35,12 @@ class GameX {
             {segments: 16, diameter: 2}, this._scene);
 
         // Create a built-in "sphere" shape; with 16 segments and diameter of 2.
-        let box = BABYLON.MeshBuilder.CreateBox('mybox', {size:3, width: 2, height:3, depth:3},
-            this._scene);
+        let mat = new BABYLON.StandardMaterial("zombie", this._scene);
+        mat.diffuseTexture = new BABYLON.Texture("assets/black-and-alpha.png", this._scene);
+        // mat.diffuseTexture.hasAlpha = true;
+        // mat.backFaceCulling = false;
+        let box = BABYLON.MeshBuilder.CreateBox('mybox', {size: 3}, this._scene);
+        box.material = mat;
 
 
         // Move the sphere upward 1/2 of its height.
@@ -54,7 +58,7 @@ class GameX {
         });
 
         // The canvas/window resize event handler.
-        window.addEventListener('resize', () => {
+        (<any>window).addEventListener('resize', () => {
             this._engine.resize();
         });
     }
@@ -62,7 +66,7 @@ class GameX {
 
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+(<any>window).addEventListener('DOMContentLoaded', () => {
     // Create the game using the 'renderCanvas'.
     let game = new GameX('renderCanvas');
 
