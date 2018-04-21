@@ -2,3 +2,5 @@ node_modules/
 package-lock.json
 build/project.bundle.js
 babylonjs/build/project.bundle.js
+game.js
+.idea/
