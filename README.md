@@ -1,6 +1,20 @@
-# ludumdare41
+#Getting started locally
 
-## Developer guide
+You can run the local webserver with live-rebuild with:
+
+    npm install
+	npm start
+
+#Build for release
+
+Create a static build with:
+
+    npm install
+	npm build
+
+... then distribute `index.html` along with the contents of the `build/` directory.
+
+#Developer guide
 1. To clone the repository run: `git clone git@github.com:trollsofthenorth/ludumdare41.git`
 2. To change the directory to the cloned repository run: `cd ludumdare41`
 3. To install the dependencies run: `npm install`
