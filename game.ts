@@ -81,24 +81,27 @@ class GameX {
         // Create a built-in "zombieBox" shape and add texture from a skin.
         let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this._scene);
         let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this._scene);
-        zombieTexture.uScale = 2;
         zombieMaterial.diffuseTexture = zombieTexture;
         zombieMaterial.diffuseTexture.hasAlpha = true;
         let zombieBox = BABYLON.MeshBuilder.CreateBox('zombieBox', {size: 3}, this._scene);
         zombieBox.material = zombieMaterial;
+        zombieBox.position.z = 3;
+        zombieBox.position.y = 3;
 
         // Here is an attempt to animate the contents of the box, but shifting the offset of the material.
-        let zombieBoxAnimation = new BABYLON.Animation("boxAnimation", 
-            "material.diffuseTexture.uScale", 
+        let zombieBoxAnimation = new BABYLON.Animation("zombieBoxAnimation", 
+            "position.x", 
             30, 
-            BABYLON.Animation.ANIMATIONTYPE_SIZE, 
-            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT, 
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
         let animationKeys = [];
-        animationKeys.push({frame: 0, value:5});
-        animationKeys.push({frame: 5, value:20});
+        animationKeys.push({frame: 0, value:1});
+        animationKeys.push({frame: 50, value:10});
+        animationKeys.push({frame: 100, value:1});
         zombieBoxAnimation.setKeys(animationKeys);
+        zombieBox.animations = [];
         zombieBox.animations.push(zombieBoxAnimation);
-        this._scene.beginAnimation(zombieBoxAnimation, 0, 100, true);
+        this._scene.beginAnimation(zombieBox, 0, 100, true);
 
         // Move the sphere upward 1/2 of its height.
         //sphere.position.y = 1;
