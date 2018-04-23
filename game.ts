@@ -1,12 +1,17 @@
 ///<reference path="babylon.d.ts" />
 
+
+import { Player } from "./player";
+
 class GameX {
 
     private _canvas: HTMLCanvasElement;
     private _engine: BABYLON.Engine;
-    private _scene: BABYLON.Scene;
-    private _camera: BABYLON.FreeCamera;
-    private _light: BABYLON.Light;
+
+    scene: BABYLON.Scene;
+    player: Player;
+
+    private _light: BABYLON.Light; // Light up the sky
 
     constructor(canvasElement : string) {
         // Create canvas and engine.
@@ -16,31 +21,26 @@ class GameX {
 
     createScene() : void {
         // Create a basic BJS Scene object.
-        this._scene = new BABYLON.Scene(this._engine);
+        this.scene = new BABYLON.Scene(this._engine);
+
 
         // Coordinate Arrows
-        CreateAxis(10, this._scene);
+        CreateAxis(10, this.scene);
 
 
         // Create a stark light right outside the doorway.
-        var startingHallwayLight = new BABYLON.PointLight("startingHallwayLight", new BABYLON.Vector3(6+1.5, 9, 3), this._scene);
+        var startingHallwayLight = new BABYLON.PointLight("startingHallwayLight", new BABYLON.Vector3(6+1.5, 9, 3), this.scene);
 
         startingHallwayLight.diffuse = new BABYLON.Color3(1, 1, 0);
         startingHallwayLight.specular = new BABYLON.Color3(1, 1, 0);
 
-        // Create a FreeCamera. The starting position will be our Character, with the sight vector at the light.
-        // 6+1.5 is the middle of our doorway, and 4 is a child-height
-        this._camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(6 + 1.5, 4,-15), this._scene);
-        this._camera.setTarget(startingHallwayLight.position);
+        this.player = new Player(this, null, startingHallwayLight.position);
 
 
-
-        // Attach the camera to the canvas.
-        this._camera.attachControl(this._canvas, false);
 
 
         // Create a basic light, aiming 0,1,0 - meaning, to the sky.
-        this._light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), this._scene);
+        this._light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), this.scene);
 
         let CreateWallWithDoorwayMesh = function(wallHeight: number, wallWidth: number, doorHeight: number, doorWidth: number, scene: BABYLON.Scene) {
             let customMesh2 = new BABYLON.Mesh("custom", scene);
@@ -70,20 +70,20 @@ class GameX {
             return mesh;
         };
 
-        let startingWall = CreateWallWithDoorwayMesh(10, 6, 6, 3, this._scene);
+        let startingWall = CreateWallWithDoorwayMesh(10, 6, 6, 3, this.scene);
 
         // Make a Wireframe Material for our
-        var wireframeMaterial = new BABYLON.StandardMaterial("mat", this._scene);
+        var wireframeMaterial = new BABYLON.StandardMaterial("mat", this.scene);
         wireframeMaterial.wireframe = false;
         wireframeMaterial.backFaceCulling = false;
         startingWall.material = wireframeMaterial;
 
         // Create a built-in "zombieBox" shape and add texture from a skin.
-        let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this._scene);
-        let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this._scene);
+        let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this.scene);
+        let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this.scene);
         zombieMaterial.diffuseTexture = zombieTexture;
         zombieMaterial.diffuseTexture.hasAlpha = true;
-        let zombieBox = BABYLON.MeshBuilder.CreateBox('zombieBox', {size: 3}, this._scene);
+        let zombieBox = BABYLON.MeshBuilder.CreateBox('zombieBox', {size: 3}, this.scene);
         zombieBox.material = zombieMaterial;
         zombieBox.position.z = 3;
         zombieBox.position.y = 3;
@@ -101,15 +101,15 @@ class GameX {
         zombieBoxAnimation.setKeys(animationKeys);
         zombieBox.animations = [];
         zombieBox.animations.push(zombieBoxAnimation);
-        this._scene.beginAnimation(zombieBox, 0, 100, true);
+        this.scene.beginAnimation(zombieBox, 0, 100, true);
 
         // Move the sphere upward 1/2 of its height.
         //sphere.position.y = 1;
 
         // Create a built-in "ground" shape.
 
-        let ground = BABYLON.MeshBuilder.CreateGround('ground', {width: 100, height: 100, subdivisions: 2}, this._scene);
-        var groundMaterial = new BABYLON.StandardMaterial("ground", this._scene);
+        let ground = BABYLON.MeshBuilder.CreateGround('ground', {width: 100, height: 100, subdivisions: 2}, this.scene);
+        var groundMaterial = new BABYLON.StandardMaterial("ground", this.scene);
         groundMaterial.diffuseColor =  new BABYLON.Color3(0.8, 0.8, 1);
         groundMaterial.specularColor = new BABYLON.Color3(0, 0.5, 0);
         ground.material = groundMaterial;
@@ -120,11 +120,13 @@ class GameX {
         ground.receiveShadows = true;
 
 
-        /*
-        let x = new BABYLON.Texture("foo", this._scene);
-        x.uOffset
-        x.vOffset
-        */
+        // Let the bodies hit the floor
+        this.scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+        this.scene.collisionsEnabled = true;
+
+        ground.checkCollisions = true;
+        startingWall.checkCollisions = true;
+
 
 
 
@@ -134,7 +136,7 @@ class GameX {
     doRender() : void {
         // Run the render loop.
         this._engine.runRenderLoop(() => {
-            this._scene.render();
+            this.scene.render();
         });
 
         // The canvas/window resize event handler.
