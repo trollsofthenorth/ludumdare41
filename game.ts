@@ -83,33 +83,6 @@ class GameX {
         wireframeMaterial.backFaceCulling = false;
         startingWall.material = wireframeMaterial;
 
-        /*
-        // Create a built-in "zombieBox" shape and add texture from a skin.
-        let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this.scene);
-        let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this.scene);
-        zombieMaterial.diffuseTexture = zombieTexture;
-        zombieMaterial.diffuseTexture.hasAlpha = true;
-        let zombieBox = BABYLON.MeshBuilder.CreateBox('zombieBox', {size: 3}, this.scene);
-        zombieBox.material = zombieMaterial;
-        zombieBox.position.z = 3;
-        zombieBox.position.y = 3;
-
-        // Here is an attempt to animate the contents of the box, but shifting the offset of the material.
-        let zombieBoxAnimation = new BABYLON.Animation("zombieBoxAnimation", 
-            "position.x", 
-            30, 
-            BABYLON.Animation.ANIMATIONTYPE_FLOAT, 
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-        let animationKeys = [];
-        animationKeys.push({frame: 0, value:1});
-        animationKeys.push({frame: 50, value:10});
-        animationKeys.push({frame: 100, value:1});
-        zombieBoxAnimation.setKeys(animationKeys);
-        zombieBox.animations = [];
-        zombieBox.animations.push(zombieBoxAnimation);
-        this.scene.beginAnimation(zombieBox, 0, 100, true);
-        */
-
         let zombieBox = new Monster(this);
 
 
