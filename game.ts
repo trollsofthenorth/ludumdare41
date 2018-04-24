@@ -98,7 +98,7 @@ class GameX {
         ground.material = groundMaterial;
 
         var startingHallwayShadowGenerator = new BABYLON.ShadowGenerator(1024, startingHallwayLight);
-        startingHallwayShadowGenerator.getShadowMap().renderList.push(startingWall);
+        startingHallwayShadowGenerator.getShadowMap().renderList.push(startingWall, zombieBox.box);
 
         ground.receiveShadows = true;
 
