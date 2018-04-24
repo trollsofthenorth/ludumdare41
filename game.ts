@@ -2,6 +2,8 @@
 
 
 import { Player } from "./player";
+import { Arena } from "./arena";
+import { Monster } from "./monster";
 
 class GameX {
 
@@ -10,6 +12,7 @@ class GameX {
 
     scene: BABYLON.Scene;
     player: Player;
+    arena: Arena;
 
     private _light: BABYLON.Light; // Light up the sky
 
@@ -23,6 +26,8 @@ class GameX {
         // Create a basic BJS Scene object.
         this.scene = new BABYLON.Scene(this._engine);
 
+
+        this.arena = new Arena(this);
 
         // Coordinate Arrows
         CreateAxis(10, this.scene);
@@ -78,6 +83,7 @@ class GameX {
         wireframeMaterial.backFaceCulling = false;
         startingWall.material = wireframeMaterial;
 
+        /*
         // Create a built-in "zombieBox" shape and add texture from a skin.
         let zombieMaterial = new BABYLON.StandardMaterial("zombieMaterial", this.scene);
         let zombieTexture = new BABYLON.Texture("assets/profile-walk-1.png", this.scene);
@@ -102,6 +108,10 @@ class GameX {
         zombieBox.animations = [];
         zombieBox.animations.push(zombieBoxAnimation);
         this.scene.beginAnimation(zombieBox, 0, 100, true);
+        */
+
+        let zombieBox = new Monster(this);
+
 
         // Move the sphere upward 1/2 of its height.
         //sphere.position.y = 1;

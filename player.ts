@@ -41,14 +41,15 @@ export class Player {
 
 
 
+        this.speed = 2;
+        this.height = 4;
+        this.inertia = 0.9;
+
         this.camera = this._initCamera();
 
         console.log("Player created");
 
 
-        this.speed = 2;
-        this.height = 4;
-        this.inertia = 0.9;
 
 
 
@@ -74,8 +75,8 @@ export class Player {
         // camera.ellipsoid = new BABYLON.Vector3(2, this.height, 2);
 
         // Movement doens't work either;
-        //camera.speed = this.speed;
-        //camera.inertia = this.inertia;
+        // camera.speed = this.speed;
+        // camera.inertia = this.inertia;
 
         // Directions
         camera.keysUp = [87]; // W
