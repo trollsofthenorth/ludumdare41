@@ -4,6 +4,7 @@
 import { Player } from "./player";
 import { Arena } from "./arena";
 import { Monster } from "./monster";
+import { Actor } from "./actor";
 
 class GameX {
 
@@ -26,6 +27,7 @@ class GameX {
         // Create a basic BJS Scene object.
         this.scene = new BABYLON.Scene(this._engine);
 
+        var dummyActor = new Actor(this);
 
         this.arena = new Arena(this);
 
@@ -76,6 +78,7 @@ class GameX {
         };
 
         let startingWall = CreateWallWithDoorwayMesh(10, 6, 6, 3, this.scene);
+        startingWall.enableEdgesRendering();
 
         // Make a Wireframe Material for our
         var wireframeMaterial = new BABYLON.StandardMaterial("mat", this.scene);
