@@ -38,7 +38,7 @@ public class MonsterController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
     }
 }
 
